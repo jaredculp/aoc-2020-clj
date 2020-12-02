@@ -1,5 +1,6 @@
 (ns advent.core
-  (:require [clojure.math.combinatorics :as combo]))
+  (:require [clojure.string]
+            [clojure.math.combinatorics :as combo]))
 
 (defn input
   "Read a file, returning a vector containing each line"
@@ -109,7 +110,7 @@
        count))
 
 (defn -main
-  [& args]
+  []
   ; answer: 646779
   (println (str "day1-part1: " (day1 2)))
 
