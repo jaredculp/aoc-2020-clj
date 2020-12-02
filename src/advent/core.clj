@@ -100,8 +100,8 @@
   []
   (->> (input "resources/day2.txt")
        (filter #(let [groups     (re-find #"(\d+)-(\d+) ([a-z]): (.*)" %)
-                      first-pos  (- (read-string (nth groups 1)) 1)
-                      second-pos (- (read-string (nth groups 2)) 1)
+                      first-pos  (dec (read-string (nth groups 1)))
+                      second-pos (dec (read-string (nth groups 2)))
                       letter     (nth (nth groups 3) 0)
                       pass       (nth groups 4)]
                   (not=
