@@ -46,11 +46,11 @@
   In your expense report, what is the product of the three entries that sum to 2020?"
   [n]
   (as-> (input "resources/day1.txt") x
-        (as-strings x)
-        (combo/combinations x n)
-        (filter #(= 2020 (reduce + %)) x)
-        (first x)
-        (reduce * x)))
+    (as-strings x)
+    (combo/combinations x n)
+    (filter #(= 2020 (reduce + %)) x)
+    (first x)
+    (reduce * x)))
 
 (defn day2-1
   "--- Day 2: Password Philosophy ---
@@ -105,8 +105,8 @@
                       letter     (nth (nth groups 3) 0)
                       pass       (nth groups 4)]
                   (not=
-                    (= (nth pass first-pos) letter)
-                    (= (nth pass second-pos) letter))))
+                   (= (nth pass first-pos) letter)
+                   (= (nth pass second-pos) letter))))
        count))
 
 (defn -main
