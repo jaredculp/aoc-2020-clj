@@ -17,6 +17,15 @@
   [x line]
   (= \# (nth (cycle line) x)))
 
+(defn count-trees
+  "Determine the number of trees encountered for a given path defined by dx and dy"
+  [dx dy lines]
+  (->> lines
+       (drop dy)
+       (take-nth dy)
+       (keep-indexed #(when (is-tree? (* (inc %1) dx) %2) true))
+       count))
+
 (defn day1
   "--- Day 1: Report Repair ---
   After saving Christmas five years in a row, you've decided to take a vacation at a nice resort on a tropical island. Surely, Christmas will go on without you.
@@ -168,11 +177,12 @@
   Starting at the top-left corner of your map and following a slope of right 3 and down 1, how many trees would you encounter?
   "
 
-  []
-  (->> (input "resources/day3.txt")
-       (drop 1)
-       (keep-indexed #(when (is-tree? (* (inc %1) 3) %2) true))
-       count))
+  [slopes]
+  (let [lines (input "resources/day3.txt")]
+    (->> slopes
+         (map #(let [[dx, dy] %]
+                 (count-trees dx dy lines)))
+         (reduce *))))
 
 (defn -main
   []
@@ -189,4 +199,11 @@
   (println (str "day2-part2: " (day2-2)))
 
   ; answer: 181
-  (println (str "day3-part1: " (day3))))
+  (println (str "day3-part1: " (day3 [[3 1]])))
+
+  ; answer: 1260601650
+  (println (str "day3-part2: " (day3 [[1 1]
+                                      [3 1]
+                                      [5 1]
+                                      [7 1]
+                                      [1 2]]))))
