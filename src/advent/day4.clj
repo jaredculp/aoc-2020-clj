@@ -2,8 +2,9 @@
   (:require [advent.core :as core]))
 
 (defn parse-line [line]
-  (into {} (->> (re-seq #"(\w+):(\S+)" line)
-                (map #(let [[_ k v] %] [(keyword k) v])))))
+  (->> (re-seq #"(\w+):(\S+)" line)
+       (map #(let [[_ k v] %] [(keyword k) v]))
+       (into {})))
 
 (defn valid? [passport]
   (every? passport #{:byr :iyr :eyr :hgt :hcl :ecl :pid}))
