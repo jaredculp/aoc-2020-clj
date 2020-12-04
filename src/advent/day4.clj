@@ -1,6 +1,5 @@
 (ns advent.day4
-  (:require [clojure.java.io :as io]
-            [clojure.string :as s]))
+  (:require [advent.core :as core]))
 
 (defn parse-line [line]
   (into {} (->> (re-seq #"(\w+):(\S+)" line)
@@ -23,16 +22,14 @@
    ecl (#{"amb" "blu" "brn" "gry" "grn" "hzl" "oth"} ecl)
    pid (re-matches #"^\d{9}$" pid)))
 
-(-> (slurp (io/resource "day4.txt"))
-    (s/split #"\n\n")
-    (->> (map parse-line))
-    (->> (filter #(valid? %)))
-    count)
+(->> (core/input-file "day4.txt" #"\n\n")
+     (map parse-line)
+     (filter #(valid? %))
+     count)
 ;; => 228
 
-(-> (slurp (io/resource "day4.txt"))
-    (s/split #"\n\n")
-    (->> (map parse-line))
-    (->> (filter #(valid2? %)))
-    count)
+(->> (core/input-file "day4.txt" #"\n\n")
+     (map parse-line)
+     (filter #(valid2? %))
+     count)
 ;; => 175
