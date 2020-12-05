@@ -14,14 +14,11 @@
 ;; => 998
 
 (defn my-seat? [[a b]]
-  (= 2 (- b a)))
+  (when (= 2 (- b a)) (inc a)))
 
 (->> (core/input-file "day5.txt")
      (map seat-id)
      sort
      (partition 2 1)
-     (filter my-seat?)
-     first
-     first
-     inc)
+     (some my-seat?))
 ;; => 676
