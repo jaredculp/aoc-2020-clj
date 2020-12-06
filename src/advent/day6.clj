@@ -1,35 +1,20 @@
 (ns advent.day6
   (:require [advent.core :as core]
+            [clojure.set]
             [clojure.string :as s]))
 
-(defn count-any-answered-question [group]
-  (->> group
-       (map #(s/replace % #"\n" ""))
-       (filter seq)
-       (into #{})
-       count))
-
-(defn alphabet []
-  (->> (range 97 123)
-       (map char)
-       (map str)
-       seq))
-
-(defn all-answered? [answers question]
-  (every? #(s/includes? % question) answers))
-
-(defn count-all-answered-questions [group]
-  (let [answers (s/split-lines group)]
-    (->> (alphabet)
-         (filter #(all-answered? answers %)))))
-
 (->> (core/input-file "day6.txt" #"\n\n")
-     (map count-any-answered-question)
+     (map s/split-lines)
+     (map s/join)
+     (map set)
+     (map count)
      (reduce +))
 ;; => 6763
 
 (->> (core/input-file "day6.txt" #"\n\n")
-     (map count-all-answered-questions)
+     (map s/split-lines)
+     (map #(map set %))
+     (map #(apply clojure.set/intersection %))
      (map count)
      (reduce +))
 ;; => 3512
